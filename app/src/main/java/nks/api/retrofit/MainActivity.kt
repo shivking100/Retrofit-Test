@@ -8,16 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import nks.api.retrofit.repository.Repository
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val repository=Repository()
-        val viewModelFactory=MainViewModelFactory(repository)
-        viewModel=ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
         viewModel.getPost()
-        viewModel.myResponse.observe(this, Observer {response->
+        viewModel.myResponse.observe(this, { response->
            if(response.isSuccessful) {
                Log.d("Response", response.body()?.userId.toString())
                Log.d("Response", response.body()?.id.toString())
