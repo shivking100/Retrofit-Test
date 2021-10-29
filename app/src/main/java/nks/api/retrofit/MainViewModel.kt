@@ -9,12 +9,16 @@ import nks.api.retrofit.repository.Repository
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository):ViewModel() {
-    val myResponse:MutableLiveData<Response<Post>> = MutableLiveData()
+    val response1:MutableLiveData<Response<Post>> = MutableLiveData()
 
     fun getPost(){
         viewModelScope.launch {
+
+
+
             val response:Response<Post> = repository.getPost()
-            myResponse.value=response
+            response1.value=response
+
         }
     }
 }
