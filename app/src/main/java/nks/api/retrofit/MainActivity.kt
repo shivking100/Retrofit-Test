@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory=MainViewModelFactory(repository)
         viewModel=ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
         viewModel.getPost()
-        viewModel.myResponse.observe(this, Observer {response->
+        viewModel.response1.observe(this, Observer { response->
            if(response.isSuccessful) {
                Log.d("Response", response.body()?.userId.toString())
                Log.d("Response", response.body()?.id.toString())
